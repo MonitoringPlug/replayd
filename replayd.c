@@ -112,17 +112,31 @@ netsnmp_variable_list *parse_reply(char *name) {
                 lptr->val_len = sizeof(long);
                 break;
             case ASN_OCTET_STR:
-                if (!value) {
-                    lptr->val.string = NULL;
-                    lptr->val_len = 0;
+                lptr->val.string = NULL;
+                lptr->val_len = 0;
+                if (!value)
                     break;
-                }
+
                 if (value[0] == '"') {
                     value++;
                     value[strlen(value)-1] = '\0';
                 }
                 lptr->val.string = (u_char *)strdup(value);
                 lptr->val_len = strlen(value);
+                if (strcmp(type_str, "Hex-STRING") == 0) {
+                    lptr->val_len = 0;
+                    while (value[0]) {
+                        char d;
+                        sscanf(value, "%2X", (unsigned int *)&d);
+                        printf("::2\n");
+                        lptr->val.string[lptr->val_len] = d;
+                        printf("::3\n");
+                        lptr->val_len += 1;
+                        printf("::4\n");
+                        value += 3;
+                        printf("::5\n");
+                    }
+                }
                 break;
             case ASN_OBJECT_ID:
                 lptr->val.objid = malloc(sizeof(oid)*MAX_OID_LEN);
