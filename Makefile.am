@@ -1,15 +1,15 @@
 ## Process this file with automake to produce Makefile.in
 
+ACLOCAL_AMFLAGS = -I m4
+
 AM_CPPFLAGS = $(NETSNMP_CFLAGS)
 
 LDADD = $(NETSNMP_AGENT_LIBS)
 
-if HAVE_NET_SNMP
-check_PROGRAMS = replayd
+bin_PROGRAMS = replayd
 
 replayd_SOURCES = replayd.c replayd.h \
 				  parse_type.c
-endif
 
 EXTRA_DIST = replays
 

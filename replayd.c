@@ -285,8 +285,6 @@ int main(int argc, char *argv[]) {
        if (verbose)
            printf("  %s [%d]\n", rEnt->name, rv);
    }
-   if (verbose)
-       printf("[%d]\n", rv);
 
    netsnmp_ds_set_string(NETSNMP_DS_APPLICATION_ID,
            NETSNMP_DS_AGENT_PORTS, "UDP::1661");
