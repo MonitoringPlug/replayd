@@ -125,16 +125,14 @@ netsnmp_variable_list *parse_reply(char *name) {
                 lptr->val_len = strlen(value);
                 if (strcmp(type_str, "Hex-STRING") == 0) {
                     lptr->val_len = 0;
+                    char d = 0;
                     while (value[0]) {
-                        char d;
-                        sscanf(value, "%2X", (unsigned int *)&d);
-                        printf("::2\n");
+                        d = strtol(value, NULL, 16);
                         lptr->val.string[lptr->val_len] = d;
-                        printf("::3\n");
                         lptr->val_len += 1;
-                        printf("::4\n");
+                        if (strlen(value) < 2)
+                            break;
                         value += 3;
-                        printf("::5\n");
                     }
                 }
                 break;
