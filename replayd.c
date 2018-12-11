@@ -63,6 +63,8 @@ netsnmp_variable_list *parse_reply(char *name) {
     netsnmp_variable_list *list = NULL;
     netsnmp_variable_list *lptr = NULL;
 
+    setbuf(stdout, NULL);
+
     fname = malloc(strlen(directory) + strlen(name) + 2);
     sprintf(fname, "%s/%s", directory, name);
     fr = fopen(fname, "r");
