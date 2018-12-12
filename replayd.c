@@ -148,7 +148,7 @@ netsnmp_variable_list *parse_reply(char *name) {
             case ASN_IPADDRESS:
                 lptr->val.integer = malloc(sizeof(struct in_addr));
 
-                if (inet_aton(value, (struct in_addr *)lptr->val.integer) == 0) {
+                if (inet_pton(AF_INET, value, (struct in_addr *)lptr->val.integer) != 1){
                     fprintf(stderr, "Invalid address: %s\n", value);
                 }
                 lptr->val_len = sizeof(struct in_addr);
