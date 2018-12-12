@@ -152,6 +152,9 @@ netsnmp_variable_list *parse_reply(char *name) {
                 }
                 lptr->val_len = sizeof(struct in_addr);
                 break;
+            default:
+                fprintf(stderr, "Don't know how to parse %s\n", type_str);
+                break;
         }
 
     }
