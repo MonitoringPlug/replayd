@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 # copy the data in
 
 RUN apt-get update
