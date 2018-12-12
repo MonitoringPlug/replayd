@@ -15,6 +15,6 @@ RUN make
 # convinience
 RUN apt-get install snmp
 
-EXPOSE 1661:1661/udp
+EXPOSE 1661/udp
 
 CMD [ "./replayd", "-d", "replays", "-v", "-v", "-v" ]
