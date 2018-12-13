@@ -1,8 +1,7 @@
 FROM debian:stretch
 # copy the data in
 
-RUN apt-get update
-RUN apt-get -y install build-essential autoconf libtool-bin libsnmp-dev
+RUN apt-get update && apt-get -y install build-essential autoconf libtool-bin libsnmp-dev && rm -rf /var/lib/apt/lists/*
 
 COPY . .
 
