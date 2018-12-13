@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <arpa/inet.h>
 
 #include <sys/types.h>
 #include <dirent.h>
@@ -62,6 +63,8 @@ netsnmp_variable_list *parse_reply(char *name) {
     int lineno=0;
     netsnmp_variable_list *list = NULL;
     netsnmp_variable_list *lptr = NULL;
+
+    setbuf(stdout, NULL);
 
     fname = malloc(strlen(directory) + strlen(name) + 2);
     sprintf(fname, "%s/%s", directory, name);
@@ -141,6 +144,17 @@ netsnmp_variable_list *parse_reply(char *name) {
                 lptr->val_len = MAX_OID_LEN;
                 snmp_parse_oid(value, lptr->val.objid, &(lptr->val_len));
                 lptr->val_len *= sizeof(oid);
+                break;
+            case ASN_IPADDRESS:
+                lptr->val.integer = malloc(sizeof(struct in_addr));
+
+                if (inet_pton(AF_INET, value, (struct in_addr *)lptr->val.integer) != 1){
+                    fprintf(stderr, "Invalid address: %s\n", value);
+                }
+                lptr->val_len = sizeof(struct in_addr);
+                break;
+            default:
+                fprintf(stderr, "Don't know how to parse %s\n", type_str);
                 break;
         }
 
