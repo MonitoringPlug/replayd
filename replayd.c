@@ -106,6 +106,7 @@ netsnmp_variable_list *parse_reply(char *name) {
             case ASN_TIMETICKS:
             case ASN_GAUGE:
             case ASN_COUNTER:
+            case ASN_COUNTER64:
                 lptr->val.integer = malloc(sizeof(long));
                 if (strchr(value, (int)'(')) {
                     value = strchr(value, (int)'(');

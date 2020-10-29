@@ -37,6 +37,7 @@ type_atoi type_map[] = {
     {"Timeticks",   ASN_TIMETICKS},
     {"Gauge32",     ASN_GAUGE},
     {"Counter32",   ASN_COUNTER},
+    {"Counter64",   ASN_COUNTER64},
     {"IpAddress",   ASN_IPADDRESS},
     {"NULL",        ASN_NULL},
     {NULL,          0},                 // Array end marker
