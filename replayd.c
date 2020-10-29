@@ -240,6 +240,9 @@ int main(int argc, char *argv[]) {
     struct dirent *dEnt;
     replay_entry *rEnt;
 
+    // disable output buffering
+    setbuf(stdout, NULL);
+
     // Process options
     while ((arg = getopt(argc, argv, "vd:L::")) != EOF) {
         switch (arg) {
